@@ -1,0 +1,3 @@
+PRIVATE_KEY = "metamask private key" 
+API_URL = "Your alchemy project api key" 
+PUBLIC_KEY = "metamask address"
