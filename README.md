@@ -1,4 +1,4 @@
-create a .env file as same in the same format as .env-sample file.
+create a .env file in the same format as .env-sample file.
 
 add PRIVATE_KEY, API_URL, PUBLIC_KEY in the .env
 					
