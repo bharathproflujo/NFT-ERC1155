@@ -15,7 +15,7 @@ from Crypto.Cipher import AES, PKCS1_OAEP
 
 from mainStream import focal
 
-class SacolaMintNFT:
+class ERC1155MintNFT:
 
     # main init function
     def __init__(self):
@@ -29,7 +29,7 @@ class SacolaMintNFT:
         # source meta mask private key
         self.pvtKey   = os.getenv('PRIVATE_KEY')
 
-    # compile sacola solidity file
+    # compile solidity file
     def compileSol( self ):
         # target file path
         source = "contracts/MintNFT_ERC1155.sol"
@@ -201,7 +201,7 @@ def initOptions():
 
     # Create the parser
     parser = argparse.ArgumentParser(
-      prog="Sacola Mint NFT",
+      prog="ERC1155 Mint NFT",
       allow_abbrev=False,
       description=f'{csuc}Process the choosen operation{cend}',
       epilog=f'{cinf}Am the helper of manage porting Rubix NFTs! (^_^){cend}'
@@ -247,7 +247,7 @@ def httpRequest(url, method, data, headers = {}):
 #---------------------------------------
 def main():
   try:
-    mintNFT = SacolaMintNFT()
+    mintNFT = ERC1155MintNFT()
 
     argparser = initOptions()
 
