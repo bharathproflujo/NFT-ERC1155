@@ -92,6 +92,7 @@ class ERC1155MintNFT:
         focal.logger.debug( f"{name}, {symbol}" )
 
         # Build constructor transaction
+        
         constructTxn = MintNFT_ERC1155.constructor( name, symbol ).buildTransaction(
             {
                 "gasPrice": self.web3.eth.gas_price,
