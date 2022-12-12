@@ -1,0 +1,17 @@
+[nodemanager] 12-12-2022 10:55:16 - ERROR: Error caught while process : SolcError('TypeError: Derived contract must override function "_beforeTokenTransfer". Two or more base classes define function with same name and parameter types.\n --> MintNFT_ERC1155.sol:9:1:\n  |\n9 | contract MintNFT_ERC1155 is ERC1155, Ownable, ERC1155Supply {\n  | ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in "ERC1155": \n   --> node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol:429:5:\n    |\n429 |     function _beforeTokenTransfer(\n    |     ^ (Relevant source part starts here and spans across multiple lines).\nNote: Definition in "ERC1155Supply": \n  --> node_modules/@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol:36:5:\n   |\n36 |     function _beforeTokenTransfer(\n   |     ^ (Relevant source part starts here and spans across multiple lines).\n\n')
+[nodemanager] 12-12-2022 10:55:34 - INFO: Attempting to deploy from account: 0xf1509703333e0AB155F5d55ad773f93a91422B41
+[nodemanager] 12-12-2022 10:55:34 - INFO: Attempting to deploy from account: 6054ac87f700e3f3b680ed7ca8c0c6ffc0db90499f82e8869aabb525b4797fd6
+[nodemanager] 12-12-2022 10:55:34 - DEBUG: Test, tst
+[nodemanager] 12-12-2022 10:55:49 - INFO: Contract deployed at address: 0xD27513838D0044BD02BC17208761D1f2DbAD3781
+[nodemanager] 12-12-2022 11:04:23 - INFO: Transaction:
+{'to': '0xD27513838D0044BD02BC17208761D1f2DbAD3781', 'from': '0xf1509703333e0AB155F5d55ad773f93a91422B41', 'value': '0x0', 'gasPrice': '0x8a6c5', 'nonce': '0x25', 'data': '0xd3fc9864000000000000000000000000f1509703333e0ab155f5d55ad773f93a91422b41000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000035697066733a2f2f516d6542395a785769466245787168363778486a6a733750637a46627867734b515959776a4d64745543454b4d540000000000000000000000', 'gas': '0x27dd0'}
+[nodemanager] 12-12-2022 11:04:23 - INFO: Function: mint
+[nodemanager] 12-12-2022 11:04:23 - INFO: Arguments:['0xf1509703333e0AB155F5d55ad773f93a91422B41', 8, 'ipfs://QmeB9ZxWiFbExqh67xHjjs7PczFbxgsKQYYwjMdtUCEKMT']
+[nodemanager] 12-12-2022 11:04:23 - INFO: Gas Price:566981
+[nodemanager] 12-12-2022 11:04:23 - INFO: Gas:163280
+[nodemanager] 12-12-2022 11:04:23 - INFO: Fees:92576657680
+[nodemanager] 12-12-2022 11:04:25 - INFO: blockNumber: (8120351,) 
+[nodemanager] 12-12-2022 11:04:25 - INFO: contractAddress: (None,) 
+[nodemanager] 12-12-2022 11:04:25 - INFO: cumulativeGasUsed: (5190634,) 
+[nodemanager] 12-12-2022 11:04:25 - INFO: from: ('0xf1509703333e0AB155F5d55ad773f93a91422B41',) 
+[nodemanager] 12-12-2022 11:04:25 - INFO: status: (1,) 

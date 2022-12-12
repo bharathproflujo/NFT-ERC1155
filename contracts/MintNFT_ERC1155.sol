@@ -32,14 +32,6 @@ contract MintNFT_ERC1155 is ERC1155, Ownable, ERC1155Supply {
         _setURI(uri);
     }
 
-    function mintBatch(
-        address to,
-        uint256[] memory ids,
-        uint256[] memory editions
-    ) public payable {
-        _mintBatch(to, ids, editions, "");
-    }
-
     function _beforeTokenTransfer(
         address operator,
         address from,

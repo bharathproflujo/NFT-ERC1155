@@ -77,8 +77,6 @@ class ERC1155MintNFT:
 
         # Web3 ETH provider
         self.web3 = Web3( provider=Web3.HTTPProvider( self.apiUrl ) )
-        # self.pvtKey = "2a14047717eed85e39ffe454c431b4a6a4cd7c69ad02f6d192c4978d408fb24b"
-        # self.fromAddr = "0xa4c0f72D43E5849C6deea2bf592aa282bF1680f2"
         self.web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
         self.web3.middleware_onion.add(middleware.time_based_cache_middleware)
@@ -118,9 +116,6 @@ class ERC1155MintNFT:
         self.web3 = Web3( provider=Web3.HTTPProvider( self.apiUrl ) )
 
         self.web3.middleware_onion.inject(geth_poa_middleware, layer=0)
-        #self.web3.middleware_onion.add(middleware.time_based_cache_middleware)
-        #self.web3.middleware_onion.add(middleware.latest_block_based_cache_middleware)
-        #self.web3.middleware_onion.add(middleware.simple_cache_middleware)
 
         contractArgs = [ self.fromAddr, editionCount,  f"ipfs://{metaDataHash}" ]
         fnName = "mint"
@@ -174,10 +169,6 @@ class ERC1155MintNFT:
         strategy = construct_time_based_gas_price_strategy( 10 )
 
         self.web3.eth.setGasPriceStrategy( strategy )
-
-        #self.web3.middleware_onion.add(middleware.time_based_cache_middleware)
-        #self.web3.middleware_onion.add(middleware.latest_block_based_cache_middleware)
-        #self.web3.middleware_onion.add(middleware.simple_cache_middleware)
 
         gas = getattr( contract.functions, fnName )(*contractArgs).estimateGas({'from': csAddr})
 
@@ -268,8 +259,6 @@ def main():
 
     # Execute the parse_args() method
     args = vars(args)
-
-    #focal.logger = focal.configLogger()
 
     # call triggered process
     for call in processes.keys():
