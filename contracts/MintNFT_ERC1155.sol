@@ -26,7 +26,8 @@ contract MintNFT_ERC1155 is ERC1155, Ownable, ERC1155Supply {
          _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
-
+        
+        require(edition > 0, "Edition count cannot be 0");
         require(msg.sender.balance >= EditionPrice * edition, "you don't have enough ether to perform this transaction");
         _mint(account, newItemId, edition, "");
         _setURI(uri);
