@@ -157,7 +157,13 @@ class ERC1155MintNFT:
 
         self.web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-        contractArgs = [ self.fromAddr, editionCount,  f"ipfs://{metaDataHash}" ]
+        metaPath = metaDataHash
+        separator = '/'
+        metaData = metaPath.split(separator, 1)[1]
+
+        contractArgs = [ self.fromAddr, editionCount,  f"ipfs://{metaData}" ]
+        print(contractArgs)
+        exit()
         fnName = "mint"
 
         contract = self.web3.eth.contract( contractAddr, abi=abi )
