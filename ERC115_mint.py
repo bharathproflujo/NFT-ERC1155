@@ -159,11 +159,11 @@ class ERC1155MintNFT:
 
         metaPath = metaDataHash
         separator = '/'
-        metaData = metaPath.split(separator, 1)[1]
+        metaData = metaPath.split(separator, 1)[0]
 
         contractArgs = [ self.fromAddr, editionCount,  f"ipfs://{metaData}" ]
         print(contractArgs)
-        exit()
+        # exit()
         fnName = "mint"
 
         contract = self.web3.eth.contract( contractAddr, abi=abi )
