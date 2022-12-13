@@ -12,19 +12,21 @@ add PRIVATE_KEY, API_URL, PUBLIC_KEY in the .env
 install pinataPy by running `pip install pinatapy-vourhey`
 
 import in our file as 
-```from pinatapy import PinataPy
+```
+from pinatapy import PinataPy
 pinata_api_key = api_key_of_pinata
 pinata_secret_api_key = secret_key_of_pinata
-pinata = PinataPy(<pinata_api_key>, <pinata_secret_api_key>)```
+pinata = PinataPy(<pinata_api_key>, <pinata_secret_api_key>)
+```
 
-#Steps to be followed to Mint ERC1155:
+# Steps to be followed to Mint ERC1155:
 1. Convert digital asset into IPFS hash
 2. Create a .json file and put the IPFS hash in it
 3. Convert the .json file as IPFS Hash and get the IPFS
 4. Deploy contract and get the Contract address
 5. Mint NFT using the Contract address and IPFS hash of .json file
 
-#Commands to be followed to achieve the above:
+# Commands to be followed to achieve the above:
 
 To Convert Digital asset into IPFS - python3 ERC1155_mint.py -ip -p filepath
 
