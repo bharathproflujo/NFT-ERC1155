@@ -5,6 +5,8 @@ import subprocess, threading, json, argparse
 import solcx
 from web3 import Web3, middleware
 #from compile import abi, bytecode
+from os.path import exists
+from pinatapy import PinataPy
 from dotenv import load_dotenv
 from web3.exceptions import ContractLogicError
 from web3.gas_strategies.time_based import *
@@ -28,6 +30,10 @@ class ERC1155MintNFT:
         self.fromAddr = os.getenv('PUBLIC_KEY')
         # source meta mask private key
         self.pvtKey   = os.getenv('PRIVATE_KEY')
+
+    pinata_api_key= '1a889ebcb114a729023e'
+    pinata_secret_api_key= '7d5f2a41cfba54c606b9b129f01fd3c930bbef73f2a63e8da7be15172cecdb96'
+    pinata = PinataPy(pinata_api_key,pinata_secret_api_key)
 
     # compile solidity file
     def compileSol( self ):
@@ -69,6 +75,39 @@ class ERC1155MintNFT:
         bytecode = compileOut['contracts']['MintNFT_ERC1155.sol']['MintNFT_ERC1155']['evm']['bytecode']['object']
 
         return abi, bytecode
+
+    def convertIpfs(self,path):
+        filepath = exists(path)
+        print(filepath)
+        # exit()
+        jsonData=''
+        if(filepath):
+            
+            result = self.pinata.pin_file_to_ipfs(path)
+            jsonData = result.get('IpfsHash') + '/' + os.path.basename(path)
+        else:
+            print('path does not exit')
+            exit()
+        print("nnj",jsonData)
+
+    def convertMetadata(self,traitType,Traitvalue,nftDescription, Nftname, jsonData):
+        print( traitType,Traitvalue,nftDescription, Nftname, jsonData)
+        # exit()
+        dict={
+            "attributes": [
+                {
+                    "trait_type": traitType,
+                    "value": Traitvalue
+                }
+            ],
+            "description": nftDescription,
+            "image": f"ipfs://{jsonData}",
+            "name": Nftname
+        }               
+
+        with open('metadata.json','w') as fp:
+            json.dump(dict, fp)
+            print('metadata created successfully')
 
     # deploy contract address
     def deployAddress( self, name, symbol ):
@@ -205,13 +244,23 @@ def initOptions():
     # Add the arguments
     parser.add_argument('-c', '--compile', nargs='?', const=True, type=bool, help='For compile the solidity')
     parser.add_argument('-d', '--deploy', nargs='?', const=True, type=bool, help='For deploy contract address')
+    parser.add_argument('-ip', '--ipfs', nargs='?', const=True, type=bool, help='For converting our digital asset into ipfs hash')
+    parser.add_argument('-md','--metadata',nargs='?',const=True, type=bool, help='For converting our digital asset into metadata')
+    parser.add_argument('-path', '--path', type=str, help='For path of digital asset')
+    parser.add_argument('-tt', '--traitType', type=str, help='For name of the deployment group')
+    parser.add_argument('-val', '--Traitvalue', type=str, help='For trait type of the metadata')
+    parser.add_argument('-ds', '--nftDescription', type=str, help='For description of the metadata')
+    parser.add_argument('-jd', '--jsonData', type=str, help='For jsonData of the metadata')
+    parser.add_argument('-nm', '--Nftname', type=str, help='For name of metadata')
+    
     parser.add_argument('-m', '--mint', nargs='?', const=True, type=bool, help='For porting the Rubix NFT')
     parser.add_argument('-n', '--name', type=str, help='For name of the deployment group')
     parser.add_argument('-s', '--symbol', type=str, help='For symbol of the deployment group')
     parser.add_argument('-a', '--address', type=str, help='For address of the contract')
+    parser.add_argument('-e', '--edition', type=int, help='For edition count of the nft')
     parser.add_argument('-mh', '--metahash', type=str, help='For meta hash of the contract')
-    parser.add_argument('-e', '--edition', type=int, help='For edition amount of the contract')
     parser.add_argument('-u', '--url', type=str, help='For API url of the blockchain')
+    
 
     return parser
 
@@ -247,8 +296,10 @@ def main():
 
     processes = {
                   "compile" : mintNFT.compileSol,
+                  "ipfs" : mintNFT.convertIpfs,
                   "deploy" : mintNFT.deployAddress,
                   "mint" : mintNFT.mintNFT,
+                  "metadata" : mintNFT.convertMetadata,
                 }
 
     args = argparser.parse_args()
@@ -279,6 +330,18 @@ def main():
                 apiUrl = args['url']
 
                 func( name, symbol)
+            elif call == 'metadata':
+                traitType = args['traitType']
+                Traitvalue = args['Traitvalue']
+                nftDescription = args['nftDescription']
+                Nftname = args['Nftname']
+                jsonData = args['jsonData']
+                
+                func(traitType,Traitvalue, nftDescription,Nftname, jsonData)
+            elif call == 'ipfs':
+                path = args['path']
+                # pinata = args['pinata']
+                func(path)
             else:
                 func()
 
