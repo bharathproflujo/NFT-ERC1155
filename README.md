@@ -1,3 +1,5 @@
+# NFT-ERC1155
+
 create a .env file as same in the same format as .env-sample file.
 
 add PRIVATE_KEY, API_URL, PUBLIC_KEY in the .env
@@ -19,7 +21,7 @@ pinata_secret_api_key = secret_key_of_pinata
 pinata = PinataPy(<pinata_api_key>, <pinata_secret_api_key>)
 ```
 
-## Steps to be followed to Mint ERC1155:
+## Steps to be followed to Mint ERC1155 NFT:
 1. Convert digital asset into IPFS hash
 2. Create a .json file and put the IPFS hash in it
 3. Convert the .json file as IPFS Hash and get the IPFS
@@ -38,4 +40,4 @@ To deploy the contract address - `python3 ERC115_mint.py -d -n name -s symbol`
 
 To Mint NFT - `python3 ERC115_mint.py -m -e edition -mh metadata -a contractAddress`
 
-# NFT-ERC1155
+
