@@ -30,10 +30,10 @@ class ERC1155MintNFT:
         self.fromAddr = os.getenv('PUBLIC_KEY')
         # source meta mask private key
         self.pvtKey   = os.getenv('PRIVATE_KEY')
-
-    pinata_api_key= '1a889ebcb114a729023e'
-    pinata_secret_api_key= '7d5f2a41cfba54c606b9b129f01fd3c930bbef73f2a63e8da7be15172cecdb96'
-    pinata = PinataPy(pinata_api_key,pinata_secret_api_key)
+        # source pinata api key
+        self.pinata_api_key = os.getenv('PINATA_API_KEY')
+        # source pinata api secret
+        self.pinata_secret_api_key = os.getenv('PINATA_SECRET_KEY')
 
     # compile solidity file
     def compileSol( self ):
@@ -78,20 +78,18 @@ class ERC1155MintNFT:
 
     def convertIpfs(self,path):
         filepath = exists(path)
-        print(filepath)
         # exit()
         jsonData=''
         if(filepath):
-            
-            result = self.pinata.pin_file_to_ipfs(path)
+            pinata = PinataPy(self.pinata_api_key,self.pinata_secret_api_key)
+            result = pinata.pin_file_to_ipfs(path)
             jsonData = result.get('IpfsHash') + '/' + os.path.basename(path)
         else:
             print('path does not exit')
             exit()
-        print("nnj",jsonData)
+        print("Your IPFS hash is: ",jsonData)
 
     def convertMetadata(self,traitType,Traitvalue,nftDescription, Nftname, jsonData):
-        print( traitType,Traitvalue,nftDescription, Nftname, jsonData)
         # exit()
         dict={
             "attributes": [
