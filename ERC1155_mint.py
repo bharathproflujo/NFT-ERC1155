@@ -27,7 +27,7 @@ class ERC1155MintNFT:
         self.apiUrl   = os.getenv('API_URL')
         # print_exc
         # source meta mask address
-        self.fromAddr = os.getenv('PUBLIC_KEY')
+        self.fromAddr = os.getenv('WALLET_ADDRESS')
         # source meta mask private key
         self.pvtKey   = os.getenv('PRIVATE_KEY')
         # source pinata api key
@@ -158,6 +158,7 @@ class ERC1155MintNFT:
         metaPath = metaDataHash
         separator = '/'
         metaData = metaPath.split(separator, 1)[0]
+        print('metaData: ' + metaData)
 
         contractArgs = [ self.fromAddr, editionCount,  f"ipfs://{metaData}" ]
         print(contractArgs)
@@ -171,6 +172,7 @@ class ERC1155MintNFT:
         gas, gasprice, txnFee, nonce = self.calculateMandates( contract, fnName, contractArgs )
 
         tfrData = {
+            'chainId' : 80001,
             'to': contract.address,
             'from': self.fromAddr,
             'value': Web3.toHex(0),
